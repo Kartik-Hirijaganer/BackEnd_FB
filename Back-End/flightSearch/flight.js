@@ -9,7 +9,8 @@ const swaggerUi = require("swagger-ui-express");
 
 //middleware
 app.use(bodyParser.json());
-app.use(cors({origin: 'http://localhost:4200'}));
+// app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors({origin: 'http://flight-booking.s3-website-us-west-2.amazonaws.com'}));
 
 const mongoose = require('mongoose');
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -63,6 +63,18 @@ userSchema.statics.login = async function(emailId, password){
   throw Error('incorrect email');
 }
 
+// userSchema.statics.login = async function(emailId, password){
+//   //console.log('inside login');
+//   const myuser = await this.findOne({emailId: emailId});
+
+//   if(myuser){
+//     if(password===myuser.password){
+//       return myuser;
+//     }
+//     throw Error('incorrect password');
+//   }
+//   throw Error('incorrect email');
+// }
 
 const user = mongoose.model("user", userSchema);
 module.exports = user;

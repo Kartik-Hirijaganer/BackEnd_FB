@@ -10,7 +10,8 @@ const swaggerUi = require("swagger-ui-express");
 
 //middleware
 app.use(bodyParser.json());
-app.use(cors({origin: 'http://localhost:4200'}));
+// app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors({origin: 'http://flight-booking.s3-website-us-west-2.amazonaws.com'}));
 
 //swagger
 const swaggerOptions = {
@@ -47,9 +48,17 @@ app.use("/admin/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *      '400':
  *        description: Server error.
  */
+// app.get('/admin/flights', (req, res) => {
+//   axios.get("http://localhost:3000/flights").then((response) => {
+//     res.status(200).send(response.data);
+//   })
+//   .catch(err => {
+//     res.status(404).json(`Error: ${err}`);
+//   });
+// });
 
 app.get('/admin/flights', (req, res) => {
-  axios.get("http://localhost:3000/flights").then((response) => {
+  axios.get("https://gs50b7rkk9.execute-api.us-west-2.amazonaws.com/production/flights").then((response) => {
     res.status(200).send(response.data);
   })
   .catch(err => {
@@ -119,7 +128,7 @@ app.post('/admin/add/flight', (req, res) => {
     fare: req.body.fare
   }
 
-  axios.post("http://localhost:3000/flight/add", newFlight).then((response)=>{
+  axios.post("https://gs50b7rkk9.execute-api.us-west-2.amazonaws.com/production/flight/add", newFlight).then((response)=>{
    res.status(200).send(response.data);
    console.log("New flight added.");
   })
@@ -171,7 +180,7 @@ app.put('/admin/edit/flight/:id', (req, res) => {
   }
 
   axios.put(
-    `http://localhost:3000/flight/edit/${req.params.id}`, newFlight
+    `https://gs50b7rkk9.execute-api.us-west-2.amazonaws.com/production/flight/edit/${req.params.id}`, newFlight
     ).then((response) => {
       //console.log(response.data);
       res.status(200).send(response.data);
@@ -202,7 +211,7 @@ app.put('/admin/edit/flight/:id', (req, res) => {
  *          description: Flight-Name
  */
 app.delete('/admin/delete/flight/:flightName', (req, res) => {
-  axios.delete(`http://localhost:3000/flight/delete/${req.params.flightName}`).then((response) => {
+  axios.delete(`https://gs50b7rkk9.execute-api.us-west-2.amazonaws.com/production/flight/delete/${req.params.flightName}`).then((response) => {
     //console.log(response.data);
     res.status(200).send(response.data);
   }).catch( (err) => {

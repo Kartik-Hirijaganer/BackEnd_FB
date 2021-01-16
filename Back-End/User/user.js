@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const auth = require('./auth');
-const sms = require('./sms');
+//const sms = require('./sms');
 
 //middleware
 app.use(bodyParser.json());
@@ -84,3 +84,5 @@ app.listen(3200, (err) => {
   }
   console.log("Listening to port 3200");
 });
+
+module.exports = app;

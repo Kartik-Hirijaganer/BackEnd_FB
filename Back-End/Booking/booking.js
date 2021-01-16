@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const sendEmail = require('./sendEmail');
+//const sendEmail = require('./sendEmail');
 
 //swagger libraries
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -11,7 +11,8 @@ const swaggerUi = require("swagger-ui-express");
 
 //middleware
 app.use(bodyParser.json());
-app.use(cors({origin: 'http://localhost:4200'}));
+// app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors({origin: 'http://flight-booking.s3-website-us-west-2.amazonaws.com'}));
 
 //mongoose
 const mongoose = require('mongoose');
@@ -138,7 +139,7 @@ app.post("/booking/add/:flightName/:userId", (req, res)=>{
   }
     var booking1 = new booking(newBooking);
     booking1.save().then(() =>{
-    sendEmail.mailSend(userEmail);
+    //sendEmail.mailSend(userEmail);
     res.status(200).json({bookingId: bookingId});
     bookingId++;
     console.log('booking success');
